@@ -1,12 +1,9 @@
+import os
+
 import discord
+
 from MusicBot import client
-from ..SpotifyModule.SpotifyUtil import SpotifyUtil
-
-@client.event
-async def on_ready():
-    print(f'Logged in as {client.user} (ID: {client.user.id})')
-    print('------')
-
+from ..SpotifyModule.spotify_util import SpotifyUtil
 
 @client.tree.command()
 async def download(interaction: discord.Interaction, song_name: str):
@@ -14,11 +11,12 @@ async def download(interaction: discord.Interaction, song_name: str):
     try:
         spotify_util = SpotifyUtil()
         await interaction.response.defer(thinking=True)
-        spotify_util.download_track(song_name)
+        track_path = spotify_util.download_track(song_name)
         
-        with open("TrackVault\星辰大海\黄霄雲 - 星辰大海.mp3", "rb") as f:
+        with open(track_path, "rb") as f:
+            print("test", os.path.basename(track_path))
             discord_file = discord.file.File(f)
+            discord_file.filename = os.path.basename(track_path)
             await interaction.followup.send(file=discord_file)
     except Exception as e:
         raise e
-

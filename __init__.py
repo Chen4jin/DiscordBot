@@ -14,7 +14,13 @@ intents = discord.Intents.default()
 intents.members = True
 intents.message_content = True
 
+
 class MyClient(discord.Client):
+    """_summary_
+
+    Args:
+        discord (_type_): discord client
+    """
     def __init__(self, *, intents: discord.Intents):
         super().__init__(intents=intents)
         self.tree = discord.app_commands.CommandTree(self)
@@ -26,5 +32,3 @@ class MyClient(discord.Client):
 
 
 client = MyClient(intents=intents)
-
-
