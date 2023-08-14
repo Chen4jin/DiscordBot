@@ -1,4 +1,4 @@
-from MusicBot import client, token
+from DiscordBot import client, token
 from .Command import *
 
 

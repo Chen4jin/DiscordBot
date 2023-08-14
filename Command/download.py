@@ -1,6 +1,8 @@
+import os
+
 import discord
 
-from MusicBot import client
+from DiscordBot import client
 from ..SpotifyModule.spotify_util import SpotifyUtil
 
 @client.tree.command()
@@ -13,6 +15,7 @@ async def download(interaction: discord.Interaction, song_name: str):
         
         with open(track_path, "rb") as f:
             discord_file = discord.file.File(f)
-            await interaction.followup.send(file=discord_file)
+            discord_file.filename = os.path.basename(track_path)
+            await interaction.followup.send(content=discord_file.filename, ephemeral=True, file=discord_file)
     except Exception as e:
         raise e
