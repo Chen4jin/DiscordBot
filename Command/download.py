@@ -14,9 +14,7 @@ async def download(interaction: discord.Interaction, song_name: str):
         track_path = spotify_util.download_track(song_name)
         
         with open(track_path, "rb") as f:
-            print("test", os.path.basename(track_path))
             discord_file = discord.file.File(f)
-            discord_file.filename = os.path.basename(track_path)
             await interaction.followup.send(file=discord_file)
     except Exception as e:
         raise e

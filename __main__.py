@@ -3,4 +3,5 @@ from .Command import *
 
 
 if __name__ == "__main__":
+    client.tree = discord.app_commands.CommandTree(client)
     client.run(token)
